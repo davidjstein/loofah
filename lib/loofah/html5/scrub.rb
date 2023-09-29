@@ -111,7 +111,10 @@ module Loofah
             next if value.empty?
 
             value << CSS_IMPORTANT if node[:important]
-            propstring = format("%s:%s", name, value.join(" "))
+
+            # propstring = format("%s:%s", name, value.join(" "))
+            propstring = format("%s:%s", name, value.join(" ")).gsub(/ \/ /, '/')
+
             sanitized_node = Crass.parse_properties(propstring).first
             sanitized_tree << sanitized_node << CRASS_SEMICOLON
           end
